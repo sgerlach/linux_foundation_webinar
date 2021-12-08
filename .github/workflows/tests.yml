@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Clone repo
         uses: actions/checkout@v2
-      - name: Run the Vuln Django Containers
+      - name: Run the Vuln Java Containers
         run: docker-compose up -d
       - name: Run HawkScan
         uses: stackhawk/hawkscan-action@4c3258cd62248dac6d9fe91dd8d45928c697dee0
@@ -17,7 +17,7 @@ jobs:
         with:
           apiKey: ${{ secrets.HAWK_API_KEY }}
           configurationFiles: stackhawk.yml stackhawk-github.yml
-          network: vuln_django_play_default
+          network: linux_foundation_webinar_default
           codeScanningAlerts: true
           githubToken: ${{ github.token }}
   snyk-scan:
@@ -28,6 +28,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/gradle@master
+        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
