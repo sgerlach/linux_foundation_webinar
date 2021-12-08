@@ -16,7 +16,7 @@ jobs:
         continue-on-error: false
         with:
           apiKey: ${{ secrets.HAWK_API_KEY }}
-          configurationFiles: stackhawk.yml
+          configurationFiles: stackhawk.yml stackhawk-github.yml
           network: linux_foundation_webinar_default
           codeScanningAlerts: true
           githubToken: ${{ github.token }}
