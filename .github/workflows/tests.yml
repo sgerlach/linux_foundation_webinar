@@ -12,7 +12,7 @@ jobs:
       - name: Run the Vuln Java Containers
         run: docker-compose up -d
       - name: Run HawkScan
-        uses: stackhawk/hawkscan-action@4c3258cd62248dac6d9fe91dd8d45928c697dee0
+        uses: stackhawk/hawkscan-action@main
         continue-on-error: false
         with:
           apiKey: ${{ secrets.HAWK_API_KEY }}
@@ -21,7 +21,7 @@ jobs:
           githubToken: ${{ github.token }}
 
   snyk-code-scan:
-    name: Snyk Code Scan
+    name: Snyk SAST Scan
     runs-on: ubuntu-latest
     steps:
       - name: Clone repo
@@ -33,15 +33,15 @@ jobs:
         with:
           command: code test
           args: |
-            "--severity-threshold=high"
-            "--sarif-file-output=snyk-code.sarif"
+            --severity-threshold=high
+            --sarif-file-output=snyk-code.sarif
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: snyk-code.sarif
 
   snyk-sca-scan:
-    name: Snyk Code Scan
+    name: Snyk SCA Scan
     runs-on: ubuntu-latest
     steps:
       - name: Clone repo
@@ -53,8 +53,8 @@ jobs:
         with:
           command: test
           args: |
-            "--severity-threshold=high"
-            "--sarif-file-output=snyk-sca.sarif"
+            --severity-threshold=high
+            --sarif-file-output=snyk-sca.sarif
       - name: Upload result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v1
         with:
