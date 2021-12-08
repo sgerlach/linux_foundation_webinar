@@ -16,7 +16,7 @@ jobs:
         continue-on-error: false
         with:
           apiKey: ${{ secrets.HAWK_API_KEY }}
-          configurationFiles: stackhawk.yml stackhawk-github.yml
+          configurationFiles: stackhawk.yml
           network: linux_foundation_webinar_default
           codeScanningAlerts: true
           githubToken: ${{ github.token }}
@@ -28,7 +28,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/gradle@master
-        continue-on-error: true
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
