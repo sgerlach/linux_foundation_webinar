@@ -40,22 +40,22 @@ jobs:
         with:
           sarif_file: snyk-code.sarif
 
-    snyk-sca-scan:
-      name: Snyk Code Scan
-      runs-on: ubuntu-latest
-      steps:
-        - name: Clone repo
-          uses: actions/checkout@v2
-        - name: Run Snyk to check for vulnerabilities
-          uses: snyk/actions/gradle@master
-          env:
-            SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-          with:
-            command: test
-            args: |
-              "--severity-threshold=high"
-              "--sarif-file-output=snyk-sca.sarif"
-        - name: Upload result to GitHub Code Scanning
-          uses: github/codeql-action/upload-sarif@v1
-          with:
-            sarif_file: snyk-sca.sarif
+  snyk-sca-scan:
+    name: Snyk Code Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone repo
+        uses: actions/checkout@v2
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/gradle@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          command: test
+          args: |
+            "--severity-threshold=high"
+            "--sarif-file-output=snyk-sca.sarif"
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: snyk-sca.sarif
