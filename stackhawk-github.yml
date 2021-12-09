@@ -1,0 +1,3 @@
+app:
+  # The url of your application to scan
+  host: https://javavulny:9000 # (required)
